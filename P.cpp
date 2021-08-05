@@ -53,12 +53,14 @@ oferta* crear_Hashing_Ofertas(){
 int main(){
     oferta* hash_Ofertas = crear_Hashing_Ofertas();
     producto* hash_Productos = crear_Hashing_Productos();
-    ifstream compras;
+    fstream compras;
     compras.open("compras.txt", ios::in);
     if(!compras.is_open()){
         cerr << "Error al abrir el archivo\n";
         exit(1); 
     }
+    fstream boletas;
+    boletas.open("boletas.txt", ios::out);
     int n_Clientes;  
     compras >> n_Clientes; //obtiene numero de clientes
     for (int i = 0 ; i < n_Clientes ; i++){
@@ -71,7 +73,7 @@ int main(){
         for (int j = 0 ; j < n_Compras ; j++){
             compras >> Memoria[j];          
         }
-        for (int x = 0; x < n_Compras; x++) {  //ordenar de menor a mayor el Array
+        for (int x = 0; x < n_Compras; x++) {
             for (int q = 0; q < n_Compras-x-1; q++) {
                 if(Memoria[q] < Memoria[q+1]){
                     int tmp = Memoria[q+1];
@@ -80,12 +82,36 @@ int main(){
                 }
             }
         }
-        for(int x = 0; x < n_Compras; x++){
-            int contador = 0;
-            
-
-
+        int tipo_productos = 0;
+        for (int y = 0 ; y < n_Compras ; y++){ //Se crea una variable, que se llena con el numero de productos distintos
+            if (y == n_Compras - 1){
+                if (Memoria[y] != Memoria[y - 1]){
+                    tipo_productos++;
+                }
+            } else if (Memoria[y] != Memoria[y + 1]){
+                tipo_productos++;
+            }
         }
+        Nodo tipo_compras[tipo_productos];
+        int contador = 0;
+        for (int z = 0 ; z < n_Compras ; z++){
+            if (z != 0){
+                if (Memoria[z] != Memoria[z - 1]){
+                    contador++;
+                }
+            }
+            Nodo elem;
+            elem.code = Memoria[z];
+            if (tipo_compras[contador].code != elem.code){
+                tipo_compras[contador] = elem;
+            }
+            tipo_compras[contador].amount++;
+        }
+        int val_a_pagar = 0;
+        for (int a = 0 ; a < tipo_productos ; a++){
+            //Aqui va el calculo del valor, comprobando por equivalentes, y sumar el precio a val_a_pagar
+        }
+        boletas << val_a_pagar;
     }
     compras.close();
     return 0;

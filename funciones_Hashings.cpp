@@ -9,7 +9,7 @@ using namespace std;
 #define C1 1
 #define C2 0
 #define C3 0
-#define l 50  //ver si se deja en 50 o se baja a 31 como dice el enunciado
+#define l 31  //como dice el enunciado
 
 struct producto {
     int cod_producto;
