@@ -71,7 +71,7 @@ int main(){
         for (int j = 0 ; j < n_Compras ; j++){
             compras >> Memoria[j];          
         }
-        for (int x = 0; x < n_Compras; x++) {
+        for (int x = 0; x < n_Compras; x++) {  //ordenar de menor a mayor el Array
             for (int q = 0; q < n_Compras-x-1; q++) {
                 if(Memoria[q] < Memoria[q+1]){
                     int tmp = Memoria[q+1];
@@ -79,6 +79,12 @@ int main(){
                     Memoria[q] = tmp;
                 }
             }
+        }
+        for(int x = 0; x < n_Compras; x++){
+            int contador = 0;
+            
+
+
         }
     }
     compras.close();
