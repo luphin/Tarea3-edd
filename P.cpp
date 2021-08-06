@@ -83,12 +83,15 @@ int main(){
         cout << "llego aca 1 \n"; //quitar
         for (int x = 0; x < n_Compras; x++) {
             for (int q = 0; q < n_Compras-x-1; q++) {
-                if(Memoria[q] < Memoria[q+1]){
+                if(Memoria[q] > Memoria[q+1]){
                     int tmp = Memoria[q+1];
                     Memoria[q+1] = Memoria[q];
                     Memoria[q] = tmp;
                 }
             }
+        }
+        for(int d = 0; d < n_Compras;d++){
+            cout << Memoria[d] << endl;
         }
         cout << "llego aca 2 \n"; //quitar
         int tipo_productos = 0;
@@ -116,6 +119,9 @@ int main(){
                 tipo_compras[contador] = elem;
             }
             tipo_compras[contador].amount++;
+            cout << "Inicia:"<<endl;
+            cout << tipo_compras[contador].amount << endl;
+            cout << "Termina:" << endl;
         }
         cout << "llego aca 4 \n"; //quitar
         int val_a_pagar = 0;
@@ -125,7 +131,8 @@ int main(){
             //Aqui va el calculo del valor, comprobando por equivalentes, y sumar el precio a val_a_pagar
             Nodo val_1 = tipo_compras[a];           //almacena el nodo en la posicion a de tip_comrpas
             int cantidadtotal = 0 ;
-            val_a_pagar =  val_a_pagar + (hashSearchProducto(hash_Productos ,val_1.code).precio * val_1.amount);
+            val_a_pagar =  val_a_pagar + (hashSearchProducto(hash_Productos ,val_1.code).precio);
+            cout << val_a_pagar<< "    " << val_1.amount <<endl;
         }
         /*
         for (int a = 0 ; a < tipo_productos ; a++){  //calculamos el descuento, dado que pueden tener los mismos descuentos un producto con otro, de esta forma no se revisa 2 veces el mismo porducto
