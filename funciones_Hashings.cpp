@@ -36,8 +36,9 @@ int p(int cod_producto, int i) {
 int hashInsertProducto(producto HT[], producto I, int longitud) {   //se agrego longitud para tener el largo de array
     int inicio, i;
     int pos = inicio = h(I.cod_producto);
-    for (i = 1; HT[pos].cod_producto != VACIA && HT[pos].cod_producto != I.cod_producto; i++)
-    pos = (inicio + p(I.cod_producto, i)) % longitud; // próxima ranura en la secuencia
+    for (i = 1; HT[pos].cod_producto != VACIA && HT[pos].cod_producto != I.cod_producto; i++){
+        pos = (inicio + p(I.cod_producto, i)) % longitud; // próxima ranura en la secuencia
+    }
     if (HT[pos].cod_producto == I.cod_producto){
         return 0; // inserción no exitosa: cod_producto repetida
     } else {
@@ -45,16 +46,17 @@ int hashInsertProducto(producto HT[], producto I, int longitud) {   //se agrego 
         HT[pos].precio = I.precio;
         for (int j = 0 ; j < l ; j++) {
             HT[pos].nombre_producto[j] = I.nombre_producto[j];
-        return 1; // inserción exitosa
         }
+        return 1; // inserción exitosa  
     }
 }
 
 int hashInsertOfertas(oferta HT[], oferta I, int longitud) {  //se agrego longitud para tener el largo de array
     int inicio, i;
     int pos = inicio = h(I.cod_producto);
-    for (i = 1; HT[pos].cod_producto != VACIA && HT[pos].cod_producto != I.cod_producto; i++)
-    pos = (inicio + p(I.cod_producto, i)) % longitud; // próxima ranura en la secuencia
+    for (i = 1; HT[pos].cod_producto != VACIA && HT[pos].cod_producto != I.cod_producto; i++){
+        pos = (inicio + p(I.cod_producto, i)) % longitud; // próxima ranura en la secuencia
+    }
     if (HT[pos].cod_producto == I.cod_producto){
         return 0; // inserción no exitosa: cod_producto repetida
     } else {
@@ -63,12 +65,10 @@ int hashInsertOfertas(oferta HT[], oferta I, int longitud) {  //se agrego longit
         HT[pos].descuento = I.descuento;
         for (int j = 0 ; j < 10 ; j++){
             HT[pos].productos_equivalentes[j] = I.productos_equivalentes[j];
-        return 1; // inserción exitosa
         }
+        return 1; // inserción exitosa
     }
 }
-
-
 
 producto hashSearchProducto(producto HT[], int k) {
     int inicio, i;
