@@ -25,6 +25,7 @@ producto* crear_Hashing_Productos(){
         hashInsertProducto(hash_Productos, nuevo, longitudA);
     }
     productos.close();
+    cout << "Se creo perfectamnete 1";
     return hash_Productos;
 }
 
@@ -46,6 +47,7 @@ oferta* crear_Hashing_Ofertas(){
         hashInsertOfertas(hash_Ofertas, nuevo, longitudB);
     }
     ofertas.close();
+    cout << "Se creo perfectamnete 1";
     return hash_Ofertas;
 }
 
@@ -108,8 +110,34 @@ int main(){
             tipo_compras[contador].amount++;
         }
         int val_a_pagar = 0;
+        int descuento = 0;
+        int render[tipo_productos];
         for (int a = 0 ; a < tipo_productos ; a++){
             //Aqui va el calculo del valor, comprobando por equivalentes, y sumar el precio a val_a_pagar
+            Nodo val_1 = tipo_compras[a];
+            int flag = 1; //No esta
+            int cantidadtotal = 0 ;
+            val_a_pagar =  val_a_pagar + (hashSearchProducto(hash_Productos ,val_1.code).precio * val_1.amount);
+            
+            /*
+            cantidadtotal = cantidadtotal + val_1.amount(); //variable para almacenar la cantidad de productos totales, al fin y al cabo tiene el mismo valor de descuento con los equivalentes
+
+            oferta flash = hashInsertOfertas(hash_Ofertas, val_1.code) //almacena el struck ofecta, para asi tenerlo a mano 
+            //for(int a = 0; a< sizeof(flash.productos_equivalentes)
+            for(int w = 0; w< 10; w++){ //iteramos dentro de los productos que son equivalentes
+                if(flash.productos_equivalentes[w] == -1){  //si es igual a -1 se termina porque los demas van a ser -1 igualemnete
+                    break;
+                }
+                for (int t= 0; t < tipo_productos; t++){  //para iterar dentro de tipo_compras y asi descontar de una los productos que son equivalentes
+                    if(flash.productos_equivalentes[w] == tipo_compras[t].code){ 
+                        cantidadtotal = cantidadtotal + tipo_compras[t].amount; //suma el valor de los productos que se encuentren
+                        for(contador = t; contador < tipo_productos; contador++){  //eleminar el struck de tipo_compras, asi se aplica el descuento de una
+			                strcpy(tipo_compras[contador], tipo_compras[contador + 1]);	\\ NO ESTOY SEGURO SI FUNCIONA, borra el struck del tipo_compras
+		                }
+                    }
+                }
+            }
+            */
         }
         boletas << val_a_pagar;
     }
