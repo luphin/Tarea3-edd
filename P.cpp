@@ -27,7 +27,7 @@ producto* crear_Hashing_Productos(){
         hashInsertProducto(hash_Productos, nuevo, longitudA);
     }
     productos.close();
-    cout << "Se creo perfectamente 1" << endl;
+    cout << "Se creo perfectamente Hash Productos 'Check'" << endl;
     return hash_Productos;
 }
 
@@ -51,13 +51,13 @@ oferta* crear_Hashing_Ofertas(){
         hashInsertOfertas(hash_Ofertas, nuevo, longitudB);
     }
     ofertas.close();
-    cout << "Se creo perfectamente 1" << endl;
+    cout << "Se creo perfectamente Hash Ofertas 'Check'" << endl;
     return hash_Ofertas;
 }
 
 
 int main(){
-//    oferta* hash_Ofertas = crear_Hashing_Ofertas();
+    oferta* hash_Ofertas = crear_Hashing_Ofertas();
     producto* hash_Productos = crear_Hashing_Productos();
     fstream compras;
     compras.open("compras.txt", ios::in);
@@ -67,7 +67,8 @@ int main(){
     }
     fstream boletas;
     boletas.open("boletas.txt", ios::out);
-    int n_Clientes;  
+    int n_Clientes;
+    int n_Clientes_1 = 1;
     compras >> n_Clientes; //obtiene numero de clientes
     for (int i = 0 ; i < n_Clientes ; i++){
         int n_Compras;
@@ -79,6 +80,7 @@ int main(){
         for (int j = 0 ; j < n_Compras ; j++){
             compras >> Memoria[j];          
         }
+        cout << "llego aca 1 \n"; //quitar
         for (int x = 0; x < n_Compras; x++) {
             for (int q = 0; q < n_Compras-x-1; q++) {
                 if(Memoria[q] < Memoria[q+1]){
@@ -88,6 +90,7 @@ int main(){
                 }
             }
         }
+        cout << "llego aca 2 \n"; //quitar
         int tipo_productos = 0;
         for (int y = 0 ; y < n_Compras ; y++){ //Se crea una variable, que se llena con el numero de productos distintos
             if (y == n_Compras - 1){
@@ -100,6 +103,7 @@ int main(){
         }
         Nodo tipo_compras[tipo_productos];
         int contador = 0;
+        cout << "llego aca 3 \n"; //quitar
         for (int z = 0 ; z < n_Compras ; z++){
             if (z != 0){
                 if (Memoria[z] != Memoria[z - 1]){
@@ -113,23 +117,25 @@ int main(){
             }
             tipo_compras[contador].amount++;
         }
+        cout << "llego aca 4 \n"; //quitar
         int val_a_pagar = 0;
         int descuentototal = 0;
-//        int render[tipo_productos];
+        int render[tipo_productos];
         for (int a = 0 ; a < tipo_productos ; a++){ //solo la suma de todos los productos, dado que pueden tener distintos precios
             //Aqui va el calculo del valor, comprobando por equivalentes, y sumar el precio a val_a_pagar
             Nodo val_1 = tipo_compras[a];           //almacena el nodo en la posicion a de tip_comrpas
-//            int cantidadtotal = 0 ;
+            int cantidadtotal = 0 ;
             val_a_pagar =  val_a_pagar + (hashSearchProducto(hash_Productos ,val_1.code).precio * val_1.amount);
         }
+        /*
         for (int a = 0 ; a < tipo_productos ; a++){  //calculamos el descuento, dado que pueden tener los mismos descuentos un producto con otro, de esta forma no se revisa 2 veces el mismo porducto
-            /*
-            Nodo val_1 = tipo_compras[a]; //almacena el nodo en la posicion a de tipo_comrpas
+            
+            Nodo val_2 = tipo_compras[a]; //almacena el nodo en la posicion a de tipo_comrpas
             int cantidadtotal = 0 ;
-            cantidadtotal = cantidadtotal + val_1.amount(); //variable para almacenar la cantidad de productos totales, al fin y al cabo tiene el mismo valor de descuento con los equivalentes
+            cantidadtotal = cantidadtotal + val_2.amount; //variable para almacenar la cantidad de productos totales, al fin y al cabo tiene el mismo valor de descuento con los equivalentes
 
-            oferta flash = hashInsertOfertas(hash_Ofertas, val_1.code) //almacena el struck ofecta, para asi tenerlo a mano 
-            for(int w = 0; w< 10; w++){ //iteramos dentro de los productos que son equivalentes
+            oferta flash = hashInsertOfertas(hash_Ofertas, val_2.code) //almacena el struck ofecta, para asi tenerlo a mano 
+            for(int w = 0; w < 10; w++){ //iteramos dentro de los productos que son equivalentes
                 if(flash.productos_equivalentes[w] == -1){  //si es igual a -1 se termina porque los demas van a ser -1 igualemnete
                     descuentototal = descuentototal + (int(cantidatotal % flash.cantidad_descuento) * flash.descuento); //se calcula el descuento total de los equivalentes antes de forzar el cierre del for
                     break;
@@ -143,10 +149,19 @@ int main(){
                     }
                 }
             }
-            */
+            
         }
+        */
         val_a_pagar = val_a_pagar - descuentototal; //calcula el total, valor total - descuento
-        boletas << val_a_pagar;
+        boletas << "numero de clientes"<< n_Clientes << endl;
+        
+        boletas << "Valor a pagar cliente " << n_Clientes_1 << ": $" << val_a_pagar << endl;
+        
+        n_Clientes_1 = n_Clientes + 1;
+
+        if (n_Clientes == n_Clientes_1){
+            break;
+        } 
     }
     compras.close();
     boletas.close();
