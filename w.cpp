@@ -101,7 +101,7 @@ int main(){
             int contador = 0;
             int first = Memoria[x];
             cout << "Patron: " << first << endl;
-            for(int y = x; y <6 ; y++){
+            for(int y = x; y <n_Compras ; y++){
                 cout << "Valor : "<< Memoria[y] <<endl;
                 if(Memoria[y] == first){
                     contador++;
