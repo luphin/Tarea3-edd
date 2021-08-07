@@ -14,4 +14,4 @@ Integrantes del Grupo
 3.Nombre: Luis Zegarra 
     Rol: 202073628-6
     Paralelo: 203
-    Aporte: 
+    Aporte: Fix errores, calculo del total de dinero por productos, he intento de descuento(fallido).
