@@ -1,4 +1,5 @@
 #include "funciones_Hashings.cpp"
+#include "creacionHash.cpp"
 
 struct Nodo{
     int code;
