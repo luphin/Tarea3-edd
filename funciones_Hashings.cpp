@@ -70,6 +70,10 @@ int p(int cod_producto, int i) {
 * int, 0 si la inserción fue infructuosa, 1 si la inserción fue exitosa
 *****/
 int hashInsertProducto(producto HT[], producto I, int longitud) {   //se agrego longitud para tener el largo de array
+    cout << I.cod_producto << endl;
+    cout << I.precio << endl;
+    cout << I.nombre_producto << endl;    
+    
     int inicio, i;
     int pos = inicio = h(I.cod_producto);
     for (i = 1; HT[pos].cod_producto != VACIA && HT[pos].cod_producto != I.cod_producto; i++){
@@ -101,6 +105,10 @@ int hashInsertProducto(producto HT[], producto I, int longitud) {   //se agrego 
 * int, 0 si la inserción fue infructuosa, 1 si la inserción fue exitosa
 *****/
 int hashInsertOfertas(oferta HT[], oferta I, int longitud) {  //se agrego longitud para tener el largo de array
+    cout << I.cod_producto << endl;
+    cout << I.cantidad_descuento << endl;
+    cout << I.descuento << endl;
+    
     int inicio, i;
     int pos = inicio = h(I.cod_producto);
     for (i = 1; HT[pos].cod_producto != VACIA && HT[pos].cod_producto != I.cod_producto; i++){

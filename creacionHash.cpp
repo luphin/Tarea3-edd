@@ -28,6 +28,11 @@ producto* crear_Hashing_Productos(){
     for (int i = 0 ; i < n_productos ; i++){
         producto nuevo;
         productos.read((char*)&nuevo, sizeof(producto));
+/*
+        cout << nuevo.cod_producto << endl;
+        cout << nuevo.precio << endl;
+        cout << nuevo.nombre_producto << endl;
+*/
         hashInsertProducto(hash_Productos, nuevo, longitudA);
     }
     productos.close();
@@ -56,13 +61,18 @@ oferta* crear_Hashing_Ofertas(){
     int n_ofertas;
     ofertas.read((char*)&n_ofertas, sizeof(int));
     int longitudB = n_ofertas/0.7;
-    oferta* hash_Ofertas = new oferta[longitudB]; //para que de un valor entero se pasa a int
+    oferta* hash_Ofertas = new oferta[longitudB];
     for (int z = 0 ; z < longitudB ; z++){
         hash_Ofertas[z].cod_producto = VACIA;
     }
     for (int i = 0 ; i < n_ofertas ; i++){
         oferta nuevo;
         ofertas.read((char*)&nuevo, sizeof(oferta));
+/*
+        cout << nuevo.cantidad_descuento << endl;
+        cout << nuevo.descuento << endl;
+        cout << nuevo.cod_producto << endl;
+*/
         hashInsertOfertas(hash_Ofertas, nuevo, longitudB);
     }
     ofertas.close();

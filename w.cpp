@@ -1,4 +1,3 @@
-#include "funciones_Hashings.cpp"
 #include "creacionHash.cpp"
 
 struct Nodo{
@@ -7,55 +6,6 @@ struct Nodo{
 };
 
 typedef struct Nodo Nodo;
-
-producto* crear_Hashing_Productos(){
-    ifstream productos;
-    productos.open("productos.dat", ios::in);
-    if(!productos.is_open()){
-        cerr << "Error al abrir el archivo\n";
-        exit(1); 
-    }
-    int n_productos;
-    productos.read((char*)&n_productos, sizeof(int));
-    int longitudA = n_productos/0.7;
-    producto* hash_Productos = new producto[longitudA]; //para que de un valor entero se pasa a int, caso contrario puede dar un float
-    for (int z = 0 ; z < longitudA ; z++){
-        hash_Productos[z].cod_producto = VACIA;
-    }
-    for (int i = 0 ; i < n_productos ; i++){
-        producto nuevo;
-        productos.read((char*)&nuevo, sizeof(producto));
-        hashInsertProducto(hash_Productos, nuevo, longitudA);
-    }
-    productos.close();
-    cout << "Se creo perfectamente Hash Productos 'Check'" << endl;
-    return hash_Productos;
-}
-
-oferta* crear_Hashing_Ofertas(){
-    ifstream ofertas;
-    ofertas.open("ofertas.dat", ios::binary);
-    if(!ofertas.is_open()){
-        cerr << "Error al abrir el archivo\n";
-        exit(1); 
-    }
-    int n_ofertas;
-    ofertas.read((char*)&n_ofertas, sizeof(int));
-    int longitudB = n_ofertas/0.7;
-    oferta* hash_Ofertas = new oferta[longitudB]; //para que de un valor entero se pasa a int
-    for (int z = 0 ; z < longitudB ; z++){
-        hash_Ofertas[z].cod_producto = VACIA;
-    }
-    for (int i = 0 ; i < n_ofertas ; i++){
-        oferta nuevo;
-        ofertas.read((char*)&nuevo, sizeof(oferta));
-        hashInsertOfertas(hash_Ofertas, nuevo, longitudB);
-    }
-    ofertas.close();
-    cout << "Se creo perfectamente Hash Ofertas 'Check'" << endl;
-    return hash_Ofertas;
-}
-
 
 int main(){
     oferta* hash_Ofertas = crear_Hashing_Ofertas();
@@ -92,27 +42,36 @@ int main(){
             }
         }
         for(int d = 0; d < n_Compras;d++){
-            cout << Memoria[d] << endl;
+//            cout << Memoria[d] << endl;
         }
 
         int val_a_pagar = 0;
-        int x=0;
+        int x = 0;
         while(x < n_Compras){  // revisa cuantos valores iguales hay dentro del array https://onlinegdb.com/Bsf9UvJ4k pueden verlo ahi con un ejemplo como funciona.
             int contador = 0;
             int first = Memoria[x];
-            cout << "Patron: " << first << endl;
-            for(int y = x; y <n_Compras ; y++){
-                cout << "Valor : "<< Memoria[y] <<endl;
+//            cout << "Patron: " << first << endl;
+            for(int y = x; y < n_Compras ; y++){
+//                cout << "Valor : "<< Memoria[y] <<endl;
                 if(Memoria[y] == first){
                     contador++;
                 }
             }
             val_a_pagar =  val_a_pagar + (hashSearchProducto(hash_Productos ,first).precio * contador); //prueba, veamos si se quita
-            cout << contador <<endl;
-            x=contador+x;
+//            cout << contador <<endl;
+            x = contador+x;
         }
 
         cout << "llego aca 4 \n"; //quitar
+
+        cout << hashSearchOferta(hash_Ofertas, 2).cod_producto << endl;
+        cout << hashSearchOferta(hash_Ofertas, 2).descuento << endl;
+        cout << hashSearchOferta(hash_Ofertas, 2).cantidad_descuento << endl;
+
+        cout << hashSearchOferta(hash_Ofertas, 3).cod_producto << endl;
+        cout << hashSearchOferta(hash_Ofertas, 3).descuento << endl;
+        cout << hashSearchOferta(hash_Ofertas, 3).cantidad_descuento << endl;
+
 //        int val_a_pagar = 0;
         int descuentototal = 0;
 //        int render[tipo_productos];
@@ -130,7 +89,6 @@ int main(){
             Nodo val_2 = tipo_compras[a]; //almacena el nodo en la posicion a de tipo_comrpas
             int cantidadtotal = 0 ;
             cantidadtotal = cantidadtotal + val_2.amount; //variable para almacenar la cantidad de productos totales, al fin y al cabo tiene el mismo valor de descuento con los equivalentes
-
             oferta flash = hashInsertOfertas(hash_Ofertas, val_2.code) //almacena el struck ofecta, para asi tenerlo a mano 
             for(int w = 0; w < 10; w++){ //iteramos dentro de los productos que son equivalentes
                 if(flash.productos_equivalentes[w] == -1){  //si es igual a -1 se termina porque los demas van a ser -1 igualemnete
@@ -160,6 +118,8 @@ int main(){
             break;
         } 
     }
+    delete[] hash_Productos;
+    delete[] hash_Ofertas;
     compras.close();
     boletas.close();
     return 0;
