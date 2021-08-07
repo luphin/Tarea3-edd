@@ -24,15 +24,51 @@ struct oferta {
     int productos_equivalentes[10];
 };
 
+/*****
+* int h
+******
+* Calculo del primer codigo de posición del hashing
+******
+* Input:
+* int cod_producto : El codigo al cual se calculará la posición
+******
+* Returns:
+* int, codigo de la posición del hashing
+*****/
 int h(int cod_producto){
     return cod_producto % 10;
 }
 
+/*****
+* int p
+******
+* Calculo del codigo de resolución de conflictos del hashing
+******
+* Input:
+* int cod_producto : El codigo al cual se calculará la posición
+* int i : Número de la cantidad de colisiones hasta el momento
+******
+* Returns:
+* int, codigo de la posición del hashing tras la colisión
+*****/
 int p(int cod_producto, int i) {
     if (i == 0) return 0;
     return C1*i*i + C2*i + C3;
 }
 
+/*****
+* int hashInsertProducto
+******
+* Función que inserta elementos en la lista de hashing
+******
+* Input:
+* producto HT[] : Arreglo "Hashing" donde insertar los elementos 
+* producto I : Elemento a insertar en el arreglo
+* int longitud : Largo del arreglo "Hashing"
+******
+* Returns:
+* int, 0 si la inserción fue infructuosa, 1 si la inserción fue exitosa
+*****/
 int hashInsertProducto(producto HT[], producto I, int longitud) {   //se agrego longitud para tener el largo de array
     int inicio, i;
     int pos = inicio = h(I.cod_producto);
@@ -51,6 +87,19 @@ int hashInsertProducto(producto HT[], producto I, int longitud) {   //se agrego 
     }
 }
 
+/*****
+* int hashInsertOferta
+******
+* Función que inserta elementos en la lista de hashing
+******
+* Input:
+* oferta HT[] : Arreglo "Hashing" donde insertar los elementos 
+* oferta I : Elemento a insertar en el arreglo
+* int longitud : Largo del arreglo "Hashing"
+******
+* Returns:
+* int, 0 si la inserción fue infructuosa, 1 si la inserción fue exitosa
+*****/
 int hashInsertOfertas(oferta HT[], oferta I, int longitud) {  //se agrego longitud para tener el largo de array
     int inicio, i;
     int pos = inicio = h(I.cod_producto);
@@ -70,6 +119,18 @@ int hashInsertOfertas(oferta HT[], oferta I, int longitud) {  //se agrego longit
     }
 }
 
+/*****
+* producto hashSearchProducto
+******
+* Función que busca elementos en la lista de hashing
+******
+* Input:
+* producto HT[] : Arreglo "Hashing" donde buscar los elementos 
+* int k : Codigo del elemento a buscar
+******
+* Returns:
+* producto, HT[pos] si la busqueda fue exitosa, val_invalido si la busqueda fue infructuosa
+*****/
 producto hashSearchProducto(producto HT[], int k) {
     int inicio, i;
     int pos = inicio = h(k);
@@ -85,24 +146,30 @@ producto hashSearchProducto(producto HT[], int k) {
     }
 }
 
+/*****
+* oferta hashSearchOferta
+******
+* Función que busca elementos en la lista de hashing
+******
+* Input:
+* oferta HT[] : Arreglo "Hashing" donde buscar los elementos 
+* int k : Codigo del elemento a buscar
+******
+* Returns:
+* oferta, HT[pos] si la busqueda fue exitosa, val_invalido si la busqueda fue infructuosa
+*****/
 oferta hashSearchOferta(oferta HT[], int k) {
     int inicio, i;
     int pos = inicio = h(k);
     for (i = 1; HT[pos].cod_producto != VACIA && HT[pos].cod_producto != k; i++)
-        pos = (inicio + p(k, i)) % M; // próxima ranura en la secuencia
+        pos = (inicio + p(k, i)) % M; 
     if (HT[pos].cod_producto == k){
-        return HT[pos]; // registro encontrado, búsqueda exitosa
+        return HT[pos]; 
     } else {
         oferta val_invalido;
         val_invalido.cod_producto = -1;
         val_invalido.descuento = -1;
         val_invalido.cantidad_descuento = -1;
-        return val_invalido; // Ejercicio: solucionar esto!
+        return val_invalido;
     }
 }
-
-
-/*
-Se quitaron algunas comillas que no eran necesarias y generaban errores, se agrego longitud en las lineas 26 y 53 
-que corresponden a los hashinsert, de esta forma se sabe la longitud de los array (M)  2/AGOSTO
-*/

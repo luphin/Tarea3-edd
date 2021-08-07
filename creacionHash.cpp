@@ -1,5 +1,16 @@
 #include "funciones_Hashings.cpp"
 
+/*****
+* producto* crear_Hashing_Productos
+******
+* Función que crea la lista de hashing
+******
+* Input:
+* Esta función no requiere input
+******
+* Returns:
+* producto, *hash_Productos, el arreglo de hashing
+*****/
 producto* crear_Hashing_Productos(){
     ifstream productos;
     productos.open("productos.dat", ios::in);
@@ -24,6 +35,17 @@ producto* crear_Hashing_Productos(){
     return hash_Productos;
 }
 
+/*****
+* oferta* crear_Hashing_Productos
+******
+* Función que crea la lista de hashing
+******
+* Input:
+* Esta función no requiere input
+******
+* Returns:
+* oferta, *hash_Ofertas, el arreglo de hashing
+*****/
 oferta* crear_Hashing_Ofertas(){
     ifstream ofertas;
     ofertas.open("ofertas.dat", ios::binary);
