@@ -9,7 +9,7 @@ Integrantes del Grupo
 2.Nombre: Andrés Puelles
     Rol: 202073607-3
     Paralelo: 201
-    Aporte: 
+    Aporte:Intento de implementacion de hashing ofertas y descuento sin resultados:(
 
 3.Nombre: Luis Zegarra 
     Rol: 202073628-6
