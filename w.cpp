@@ -7,6 +7,17 @@ struct Nodo{
 
 typedef struct Nodo Nodo;
 
+/*****
+* int main
+******
+* Calculael valor a pagar de una lista de clientes, y los incluye en "boletas.txt"
+******
+* Input:
+* esta función no requiere input
+******
+* Returns:
+* int, 0 aunque su principal función es escribir en "boletas.txt"
+*****/
 int main(){
     oferta* hash_Ofertas = crear_Hashing_Ofertas();
     producto* hash_Productos = crear_Hashing_Productos();
@@ -31,7 +42,7 @@ int main(){
         for (int j = 0 ; j < n_Compras ; j++){
             compras >> Memoria[j];          
         }
-        cout << "llego aca 1 \n"; //quitar
+//        cout << "llego aca 1 \n"; //quitar
         for (int x = 0; x < n_Compras; x++) { //ordena el Array de menor a mayor
             for (int q = 0; q < n_Compras-x-1; q++) {
                 if(Memoria[q] > Memoria[q+1]){
@@ -61,7 +72,7 @@ int main(){
 //            cout << contador <<endl;
             x = contador+x;
         }
-
+/*
         cout << "llego aca 4 \n"; //quitar
 
         cout << hashSearchOferta(hash_Ofertas, 2).cod_producto << endl;
@@ -71,7 +82,7 @@ int main(){
         cout << hashSearchOferta(hash_Ofertas, 3).cod_producto << endl;
         cout << hashSearchOferta(hash_Ofertas, 3).descuento << endl;
         cout << hashSearchOferta(hash_Ofertas, 3).cantidad_descuento << endl;
-
+*/
 //        int val_a_pagar = 0;
         int descuentototal = 0;
 //        int render[tipo_productos];
